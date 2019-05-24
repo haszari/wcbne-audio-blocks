@@ -1,0 +1,41 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+  audioblocks:
+    image: wordpress:latest
+    volumes:
+      - wordpress:/var/www/html
+      - ./wp-content:/var/www/html/wp-content/
+    depends_on:
+      - db
+    ports:
+      - "4953:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+
+  nodejs:
+    image: node:latest
+    user: "node"
+    working_dir: /home/node/app
+    volumes:
+      - ./wp-content:/home/node/app
+    command: npm install
+
+volumes:
+    wordpress: {}
+    db_data: {}
