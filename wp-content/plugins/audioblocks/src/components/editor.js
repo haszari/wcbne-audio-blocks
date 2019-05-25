@@ -5,7 +5,7 @@ import { Button } from '@wordpress/components';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { Component } from '@wordpress/element';
 
-import looperView from './frontend';
+import LooperView from './frontend';
 
 const ALLOWED_MEDIA_TYPES = [ 'audio' ];
 
@@ -57,12 +57,12 @@ class LooperEdit extends Component {
 			</MediaUploadCheck>
 		);
 
-		const frontend = looperView( this.props );
+		// const frontend = looperView( attributes );
 
 		return (
 			<div>
 				{ audioMediaUpload }
-				{ frontend }
+				<LooperView audioUrl={ audioUrl } />
 			</div>
 		);
 	}

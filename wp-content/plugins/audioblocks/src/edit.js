@@ -13,6 +13,8 @@ registerBlockType( 'audioblocks/loop', {
 	},
 	category: 'audioblocks',
 	edit: LooperEdit,
-	save: LooperView,
+	save: ( { attributes } ) => (
+		<LooperView audioUrl={ attributes.audioUrl } />
+	),
 } );
 

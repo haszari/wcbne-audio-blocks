@@ -20,12 +20,9 @@ function audioblocks_enqueue_view_script() {
 		'audioblocks_view',
 		plugins_url( 'build/view.js', __FILE__ ),
 		[
-			// 'wp-blocks',
-			// 'wp-block-editor',
-			// 'wp-components',
-			// 'wp-compose',
-			// 'wp-data',
-			// 'wp-element',
+			'wp-components',
+			'wp-compose',
+			'wp-element',
 		],
 		filemtime( plugin_dir_path( __FILE__ ) . 'build/view.js' )
 	);
