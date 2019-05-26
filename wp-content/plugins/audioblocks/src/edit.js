@@ -9,12 +9,19 @@ registerBlockType( 'audioblocks/loop', {
 	attributes: {
 		audioUrl: {
 			type: 'string',
+		},
+		tempoBpm: {
+			type: 'number',
+			default: 120,
 		}
 	},
 	category: 'audioblocks',
 	edit: LooperEdit,
 	save: ( { attributes } ) => (
-		<LooperView audioUrl={ attributes.audioUrl } />
+		<LooperView
+			audioUrl={ attributes.audioUrl }
+			tempoBpm={ attributes.tempoBpm }
+		/>
 	),
 } );
 

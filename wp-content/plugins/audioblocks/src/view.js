@@ -14,7 +14,12 @@ function initLoop( element ) {
 		return;
 	}
 
-	wp.element.render(<LooperView audioUrl={ element.dataset.audioUrl } />, element );
+	wp.element.render(
+		<LooperView
+			audioUrl={ element.dataset.audioUrl }
+			tempoBpm={ element.dataset.tempoBpm }
+		/>
+	, element );
 }
 
 function initLoops() {
