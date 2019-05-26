@@ -4,6 +4,7 @@ import { withSelect } from '@wordpress/data';
 import {
 	Button,
 	RangeControl,
+	TextControl,
 } from '@wordpress/components';
 import {
 	InspectorControls,
@@ -47,7 +48,7 @@ class LooperEdit extends Component {
 
 	render() {
 		const { attributes, setAttributes } = this.props;
-		const { audioId, audioUrl, tempoBpm } = attributes;
+		const { audioId, audioUrl, tempoBpm, startOffsetSeconds } = attributes;
 
 		const audioMediaUpload = (
 			<MediaUploadCheck>
@@ -68,13 +69,21 @@ class LooperEdit extends Component {
 			<InspectorControls>
 			    <RangeControl
 			        label="Tempo"
-			        help="Set the tempo of your loop in beats per minute."
+			        help="Set the tempo of your loop (in beats per minute)."
 			        value={ tempoBpm }
 			        onChange={
 			        	( value ) => setAttributes( { tempoBpm: value } )
 			        }
 			        min={ 50 }
 			        max={ 180 }
+			    />
+			    <TextControl
+			        label="Start Offset"
+			        help="Set the start time of the first beat of your loop (in seconds)."
+			        value={ startOffsetSeconds }
+			        onChange={
+			        	( value ) => setAttributes( { startOffsetSeconds: value } )
+			        }
 			    />
 			</InspectorControls>
 		);
@@ -83,7 +92,7 @@ class LooperEdit extends Component {
 			<div>
 				{ sidebarControls }
 				{ audioMediaUpload }
-				<LooperView audioUrl={ audioUrl } />
+				<LooperView attributes={ attributes } />
 			</div>
 		);
 	}

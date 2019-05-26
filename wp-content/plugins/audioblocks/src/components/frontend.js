@@ -20,7 +20,8 @@ function getSecondsPerBeat( tempoBpm ) {
 	return 60.0 / tempoBpm;
 }
 
-const looper = ( { audioUrl, tempoBpm, buffer, player, isPlaying, setState } ) => {
+const looper = ( { attributes, buffer, player, isPlaying, setState } ) => {
+	const { audioUrl, tempoBpm, startOffsetSeconds } = attributes;
 	const secondsPerBeat = getSecondsPerBeat( tempoBpm );
 
 	function start() {
@@ -32,9 +33,10 @@ const looper = ( { audioUrl, tempoBpm, buffer, player, isPlaying, setState } ) =
 		player.buffer = buffer;
 		player.playbackRate.value = 1.0;
 
-		const loopLengthBeats = 1;
+		const loopLengthBeats = 2;
 		player.loop = true;
-		player.loopEnd = loopLengthBeats * secondsPerBeat;
+		player.loopStart = startOffsetSeconds;
+		player.loopEnd = startOffsetSeconds + loopLengthBeats * secondsPerBeat;
 
 		player.connect( audioContext.destination );
 		player.start();
@@ -71,6 +73,7 @@ const looper = ( { audioUrl, tempoBpm, buffer, player, isPlaying, setState } ) =
 			className='audioblocks-audiolooper'
 			data-audio-url={ audioUrl }
 			data-tempo-bpm={ tempoBpm }
+			data-start-offset-seconds={ startOffsetSeconds }
 		>
 			Looper!
 			<Button onClick={ toggle } >

@@ -10,14 +10,18 @@ function getLoopElements() {
 }
 
 function initLoop( element ) {
-	if ( ! element.dataset.audioUrl ) {
+	if ( ! element.dataset.audioUrl ||
+		 ! element.dataset.tempoBpm ) {
 		return;
 	}
 
 	wp.element.render(
 		<LooperView
-			audioUrl={ element.dataset.audioUrl }
-			tempoBpm={ element.dataset.tempoBpm }
+			attributes={ {
+				audioUrl: element.dataset.audioUrl,
+				tempoBpm: parseFloat( element.dataset.tempoBpm ),
+				startOffsetSeconds: parseFloat( element.dataset.startOffsetSeconds ),
+			} }
 		/>
 	, element );
 }

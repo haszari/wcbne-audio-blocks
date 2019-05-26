@@ -13,14 +13,17 @@ registerBlockType( 'audioblocks/loop', {
 		tempoBpm: {
 			type: 'number',
 			default: 120,
-		}
+		},
+		startOffsetSeconds: {
+			type: 'number',
+			default: 0,
+		},
 	},
 	category: 'audioblocks',
 	edit: LooperEdit,
 	save: ( { attributes } ) => (
 		<LooperView
-			audioUrl={ attributes.audioUrl }
-			tempoBpm={ attributes.tempoBpm }
+			attributes={ attributes }
 		/>
 	),
 } );
