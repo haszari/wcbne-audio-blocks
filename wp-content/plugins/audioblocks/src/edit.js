@@ -14,6 +14,10 @@ registerBlockType( 'audioblocks/loop', {
 			type: 'number',
 			default: 120,
 		},
+		loopLengthBeats: {
+			type: 'number',
+			default: 2,
+		},
 		startOffsetSeconds: {
 			type: 'number',
 			default: 0,

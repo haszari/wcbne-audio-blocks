@@ -20,6 +20,7 @@ function initLoop( element ) {
 			attributes={ {
 				audioUrl: element.dataset.audioUrl,
 				tempoBpm: parseFloat( element.dataset.tempoBpm ),
+				loopLengthBeats: parseFloat( element.dataset.loopLengthBeats ),
 				startOffsetSeconds: parseFloat( element.dataset.startOffsetSeconds ),
 			} }
 		/>

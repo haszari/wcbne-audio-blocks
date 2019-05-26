@@ -3,6 +3,7 @@ import { compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 import {
 	Button,
+	ButtonGroup,
 	RangeControl,
 	TextControl,
 } from '@wordpress/components';
@@ -48,14 +49,13 @@ class LooperEdit extends Component {
 
 	render() {
 		const { attributes, setAttributes } = this.props;
-		const { audioId, audioUrl, tempoBpm, startOffsetSeconds } = attributes;
+		const { audioId, audioUrl, tempoBpm, loopLengthBeats, startOffsetSeconds } = attributes;
 
 		const audioMediaUpload = (
 			<MediaUploadCheck>
 				<MediaUpload
 					onSelect={ this.onSelectAudioFile }
 					allowedTypes={ ALLOWED_MEDIA_TYPES }
-					// value={ 0 }
 					render={ ( { open } ) => (
 						<Button onClick={ open }>
 							Choose audio…
@@ -64,6 +64,17 @@ class LooperEdit extends Component {
 				/>
 			</MediaUploadCheck>
 		);
+
+		function loopSizeButton( beats ) {
+			return (
+				<Button
+					isPrimary={ loopLengthBeats === beats }
+					onClick={ ( value ) => setAttributes( { loopLengthBeats: beats } ) }>
+					{ beats }
+				</Button>
+			);
+		};
+		const loopSizes = [ 1, 2, 4, 8 ].map( loopSizeButton );
 
 		const sidebarControls = (
 			<InspectorControls>
@@ -77,6 +88,9 @@ class LooperEdit extends Component {
 			        min={ 50 }
 			        max={ 180 }
 			    />
+			    <ButtonGroup>
+					{ loopSizes }
+			    </ButtonGroup>
 			    <TextControl
 			        label="Start Offset"
 			        help="Set the start time of the first beat of your loop (in seconds)."
