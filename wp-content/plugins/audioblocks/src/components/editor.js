@@ -50,10 +50,10 @@ class LooperEdit extends Component {
 	}
 
 	render() {
-		const { attributes, setAttributes } = this.props;
+		const { attributes, setAttributes, isSelected } = this.props;
 		const { audioId, audioTitle, audioUrl, tempoBpm, loopLengthBeats, startOffsetSeconds } = attributes;
 
-		const audioMediaUpload = (
+		const audioMediaUpload = isSelected ? (
 			<MediaUploadCheck>
 				<MediaUpload
 					onSelect={ this.onSelectAudioFile }
@@ -65,7 +65,7 @@ class LooperEdit extends Component {
 					) }
 				/>
 			</MediaUploadCheck>
-		);
+		) : null;
 
 		function loopSizeButton( beats ) {
 			return (
