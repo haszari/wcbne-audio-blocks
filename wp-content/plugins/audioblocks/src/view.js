@@ -1,6 +1,4 @@
 
-import LooperView from './components/frontend';
-
 function getLoopElements() {
 	return Array.from(
 		document.querySelectorAll(
@@ -15,16 +13,7 @@ function initLoop( element ) {
 		return;
 	}
 
-	wp.element.render(
-		<LooperView
-			attributes={ {
-				audioUrl: element.dataset.audioUrl,
-				tempoBpm: parseFloat( element.dataset.tempoBpm ),
-				loopLengthBeats: parseFloat( element.dataset.loopLengthBeats ),
-				startOffsetSeconds: parseFloat( element.dataset.startOffsetSeconds ),
-			} }
-		/>
-	, element );
+	// TODO set up the audio experience here
 }
 
 function initLoops() {
