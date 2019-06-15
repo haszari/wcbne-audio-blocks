@@ -18,9 +18,9 @@ add_filter( 'block_categories', function( $categories, $post ) {
 function audioblocks_enqueue_view_script() {
 	wp_enqueue_script(
 		'audioblocks_view',
-		plugins_url( 'build/view.js', __FILE__ ),
+		plugins_url( 'build/frontend.js', __FILE__ ),
 		[],
-		filemtime( plugin_dir_path( __FILE__ ) . 'build/view.js' )
+		filemtime( plugin_dir_path( __FILE__ ) . 'build/frontend.js' )
 	);
 }
 add_action( 'wp_enqueue_scripts', 'audioblocks_enqueue_view_script' );

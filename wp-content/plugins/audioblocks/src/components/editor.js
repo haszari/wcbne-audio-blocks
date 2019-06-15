@@ -14,7 +14,7 @@ import {
 } from '@wordpress/block-editor';
 import { Component } from '@wordpress/element';
 
-import Frontend from './frontend';
+import LooperView from './save';
 
 const ALLOWED_MEDIA_TYPES = [ 'audio' ];
 
@@ -108,7 +108,7 @@ class LooperEdit extends Component {
 			<div>
 				{ sidebarControls }
 				{ audioMediaUpload }
-				<Frontend attributes={ attributes } />
+				<LooperView attributes={ attributes } />
 			</div>
 		);
 	}

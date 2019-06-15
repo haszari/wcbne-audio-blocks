@@ -1,7 +1,7 @@
 import { registerBlockType } from '@wordpress/blocks';
 
 import LooperEdit from './components/editor';
-import LooperView from './components/frontend';
+import LooperView from './components/save';
 
 registerBlockType( 'audioblocks/loop', {
 	title: 'Audio Loop',
