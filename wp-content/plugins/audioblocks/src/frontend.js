@@ -26,9 +26,12 @@ class Looper {
 
 		this.secondsPerBeat = getSecondsPerBeat( tempoBpm );
 		this.player = null;
+		this.fader = null;
 		this.isPlaying = false;
 		this.buffer = null;
+
 		this.playbackBpm = tempoBpm;
+		this.playbackLevel = 0;
 
 		if ( audioUrl ) {
 			loadSample( audioUrl, audioContext, ( buffer ) => {
@@ -39,6 +42,19 @@ class Looper {
 
 	setPlaybackTempo( bpm ) {
 		this.playbackBpm = bpm;
+	}
+	setPlaybackLevel( level ) {
+		const fadeTime = 1 * getSecondsPerBeat( this.playbackBpm );
+
+		this.playbackLevel = level;
+
+		if ( this.fader ) {
+			this.fader.gain.linearRampToValueAtTime(
+				this.playbackLevel,
+				audioContext.currentTime + fadeTime
+			);
+		}
+
 	}
 
 	start() {
@@ -56,7 +72,12 @@ class Looper {
 		this.player.loopStart = startOffsetSeconds;
 		this.player.loopEnd = startOffsetSeconds + ( loopLengthBeats * this.secondsPerBeat );
 
-		this.player.connect( audioContext.destination );
+		this.fader = audioContext.createGain();
+		this.fader.gain.value = this.playbackLevel;
+
+		this.player.connect( this.fader );
+		this.fader.connect( audioContext.destination );
+
 		this.player.start();
 
 	    this.isPlaying = true;
@@ -127,7 +148,16 @@ function togglePlayback() {
 	} );
 }
 
+function onScrollChange() {
+	const faderPosition = window.pageYOffset / ( document.body.scrollHeight - window.innerHeight);
+	if ( loopers[0] && loopers[1] ) {
+		loopers[0].setPlaybackLevel( faderPosition );
+		loopers[1].setPlaybackLevel( 1.0 - faderPosition );
+	}
+}
+
 if ( typeof window !== 'undefined' && typeof document !== 'undefined' ) {
 	document.addEventListener( 'DOMContentLoaded', initLoops );
+	window.addEventListener( 'scroll', onScrollChange );
 	document.addEventListener( 'click', togglePlayback );
 }
