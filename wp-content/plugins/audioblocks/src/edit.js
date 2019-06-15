@@ -10,6 +10,9 @@ registerBlockType( 'audioblocks/loop', {
 		audioUrl: {
 			type: 'string',
 		},
+		audioTitle: {
+			type: 'string',
+		},
 		tempoBpm: {
 			type: 'number',
 			default: 120,

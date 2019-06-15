@@ -14,6 +14,8 @@ import {
 } from '@wordpress/block-editor';
 import { Component } from '@wordpress/element';
 
+import Frontend from './frontend';
+
 const ALLOWED_MEDIA_TYPES = [ 'audio' ];
 
 function AudioMediaUpload( ) {
@@ -35,6 +37,7 @@ class LooperEdit extends Component {
 			this.props.setAttributes( {
 				audioId: undefined,
 				audioUrl: undefined,
+				audioTitle: undefined,
 			} );
 			return;
 		}
@@ -42,12 +45,13 @@ class LooperEdit extends Component {
 		this.props.setAttributes( {
 			audioId: media.id,
 			audioUrl: media.url,
+			audioTitle: media.title,
 		} );
 	}
 
 	render() {
 		const { attributes, setAttributes } = this.props;
-		const { audioId, audioUrl, tempoBpm, loopLengthBeats, startOffsetSeconds } = attributes;
+		const { audioId, audioTitle, audioUrl, tempoBpm, loopLengthBeats, startOffsetSeconds } = attributes;
 
 		const audioMediaUpload = (
 			<MediaUploadCheck>
@@ -104,6 +108,7 @@ class LooperEdit extends Component {
 			<div>
 				{ sidebarControls }
 				{ audioMediaUpload }
+				<Frontend attributes={ attributes } />
 			</div>
 		);
 	}

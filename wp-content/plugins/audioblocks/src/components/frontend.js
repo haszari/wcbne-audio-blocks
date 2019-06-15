@@ -1,6 +1,6 @@
 
 const looper = ( { attributes } ) => {
-	const { audioUrl, tempoBpm, loopLengthBeats, startOffsetSeconds } = attributes;
+	const { audioUrl, audioTitle, tempoBpm, loopLengthBeats, startOffsetSeconds } = attributes;
 
 	const element = audioUrl ? (
 		<div
@@ -10,7 +10,7 @@ const looper = ( { attributes } ) => {
 			data-loop-length-beats={ loopLengthBeats }
 			data-start-offset-seconds={ startOffsetSeconds }
 		>
-			Looper!
+			<span>{ audioTitle }</span>
 		</div>
 	) : null;
 	return (
