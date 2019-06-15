@@ -28,6 +28,7 @@ class Looper {
 		this.player = null;
 		this.isPlaying = false;
 		this.buffer = null;
+		this.playbackBpm = tempoBpm;
 
 		if ( audioUrl ) {
 			loadSample( audioUrl, audioContext, ( buffer ) => {
@@ -36,16 +37,20 @@ class Looper {
 		}
 	}
 
+	setPlaybackTempo( bpm ) {
+		this.playbackBpm = bpm;
+	}
+
 	start() {
 		if ( ! this.buffer || this.playing ) {
 			return;
 		}
-		const { loopLengthBeats, startOffsetSeconds } = this.props;
+		const { loopLengthBeats, startOffsetSeconds, tempoBpm } = this.props;
 
 		this.player = audioContext.createBufferSource();
 
 		this.player.buffer = this.buffer;
-		this.player.playbackRate.value = 1.0;
+		this.player.playbackRate.value = this.playbackBpm / tempoBpm;
 
 		this.player.loop = true;
 		this.player.loopStart = startOffsetSeconds;
@@ -112,8 +117,11 @@ function initLoops() {
 }
 
 function togglePlayback() {
+	const globalTempo = 127;
+
 	audioContext.resume().then( function() {
 		loopers.forEach( looper => {
+			looper.setPlaybackTempo( globalTempo );
 			looper.toggle();
 		} );
 	} );
