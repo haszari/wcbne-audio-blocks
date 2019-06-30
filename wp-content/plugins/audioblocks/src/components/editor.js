@@ -49,9 +49,16 @@ class LooperEdit extends Component {
 		} );
 	}
 
+	hasAudio() {
+		const { audioUrl } = this.props.attributes;
+		return ( audioUrl );
+	}
+
 	render() {
 		const { attributes, setAttributes, isSelected } = this.props;
 		const { audioId, audioTitle, audioUrl, tempoBpm, loopLengthBeats, startOffsetSeconds } = attributes;
+
+		const setAudioButtonLabel = this.hasAudio() ? 'Replace audio…' : 'Choose audio…';
 
 		const audioMediaUpload = isSelected ? (
 			<MediaUploadCheck>
@@ -59,8 +66,8 @@ class LooperEdit extends Component {
 					onSelect={ this.onSelectAudioFile }
 					allowedTypes={ ALLOWED_MEDIA_TYPES }
 					render={ ( { open } ) => (
-						<Button onClick={ open }>
-							Choose audio…
+						<Button isDefault onClick={ open }>
+							{ setAudioButtonLabel }
 						</Button>
 					) }
 				/>
