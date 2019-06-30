@@ -1,6 +1,7 @@
+import LoopCard from './loop-card';
 
 const looper = ( { attributes } ) => {
-	const { audioUrl, audioTitle, tempoBpm, loopLengthBeats, startOffsetSeconds } = attributes;
+	const { audioUrl, audioTitle, audioArtist, tempoBpm, loopLengthBeats, startOffsetSeconds } = attributes;
 
 	const element = audioUrl ? (
 		<div
@@ -10,7 +11,7 @@ const looper = ( { attributes } ) => {
 			data-loop-length-beats={ loopLengthBeats }
 			data-start-offset-seconds={ startOffsetSeconds }
 		>
-			<span>{ audioTitle }</span>
+			<LoopCard artist={ audioArtist } title={ audioTitle } />
 		</div>
 	) : null;
 	return (

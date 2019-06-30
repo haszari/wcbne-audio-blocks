@@ -31,13 +31,14 @@ class LooperEdit extends Component {
 	}
 
 	onSelectAudioFile( media ) {
-		console.log( `Selected audio id=${ media.id } url=${ media.url }` );
+		// console.log( `Selected audio id=${ media.id } url=${ media.url }` );
 
 		if ( ! media || ! media.url ) {
 			this.props.setAttributes( {
 				audioId: undefined,
 				audioUrl: undefined,
 				audioTitle: undefined,
+				audioArtist: undefined,
 			} );
 			return;
 		}
@@ -46,6 +47,7 @@ class LooperEdit extends Component {
 			audioId: media.id,
 			audioUrl: media.url,
 			audioTitle: media.title,
+			audioArtist: media.artist,
 		} );
 	}
 
