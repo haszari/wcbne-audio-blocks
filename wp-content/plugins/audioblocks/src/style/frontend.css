@@ -5,6 +5,11 @@
 	padding: 10px;
 }
 
+
+.audioblocks-audiolooper .audioLoopCard.hidden {
+	display: none;
+}
+
 .audioblocks-audiolooper .audioLoopCard-artist {
 	font-weight: bold;
 }

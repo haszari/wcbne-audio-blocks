@@ -24,6 +24,10 @@ registerBlockType( 'audioblocks/loop', {
 			type: 'number',
 			default: 2,
 		},
+		showCardOnPage: {
+			type: 'boolean',
+			default: true,
+		},
 		startOffsetSeconds: {
 			type: 'number',
 			default: 0,

@@ -1,9 +1,14 @@
 
-const LoopCard = ( { artist, title } ) => {
+const LoopCard = ( { artist, title, hidden } ) => {
+
+	let classes = 'audioLoopCard';
+	if ( hidden ) {
+		classes += ' hidden';
+	}
 
 	return (
-		<div className="audioLoopCard">
-			<span class="audioLoopCard-artist">{ artist }</span> – <span class="audioLoopCard-title">{ title }</span>
+		<div className={ classes }>
+			<span class='audioLoopCard-artist'>{ artist }</span> – <span class='audioLoopCard-title'>{ title }</span>
 		</div>
 	);
 }

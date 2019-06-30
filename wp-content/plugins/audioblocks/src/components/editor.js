@@ -6,8 +6,10 @@ import {
 	ButtonGroup,
 	RangeControl,
 	TextControl,
+	Toolbar,
 } from '@wordpress/components';
 import {
+	BlockControls,
 	InspectorControls,
 	MediaUpload,
 	MediaUploadCheck,
@@ -58,7 +60,15 @@ class LooperEdit extends Component {
 
 	render() {
 		const { attributes, setAttributes, isSelected } = this.props;
-		const { audioId, audioTitle, audioUrl, tempoBpm, loopLengthBeats, startOffsetSeconds } = attributes;
+		const {
+			audioId,
+			audioTitle,
+			audioUrl,
+			tempoBpm,
+			loopLengthBeats,
+			showCardOnPage,
+			startOffsetSeconds,
+		} = attributes;
 
 		const setAudioButtonLabel = this.hasAudio() ? 'Replace audio…' : 'Choose audio…';
 
@@ -86,6 +96,22 @@ class LooperEdit extends Component {
 			);
 		};
 		const loopSizes = [ 1, 2, 4, 8 ].map( loopSizeButton );
+
+		const blockToolbar = (
+			<BlockControls>
+				<Toolbar controls={[
+					{
+						icon: 'album',
+						title: 'Show card on page',
+						isActive: showCardOnPage,
+						onClick: () => setAttributes( {
+							showCardOnPage: ! showCardOnPage
+						} )
+					}
+				]}>
+				</Toolbar>
+			</BlockControls>
+		);
 
 		const sidebarControls = (
 			<InspectorControls>
@@ -115,6 +141,7 @@ class LooperEdit extends Component {
 
 		return (
 			<div>
+				{ blockToolbar }
 				{ sidebarControls }
 				{ audioMediaUpload }
 				<LooperView attributes={ attributes } />
