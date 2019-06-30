@@ -1,0 +1,4 @@
+.editor-styles-wrapper .audioblocks-audiolooper .audioLoopCard.hidden {
+	display: block;
+	opacity: 0.5;
+}

@@ -45,6 +45,11 @@ function audioblocks_enqueue_block_editor_assets() {
 		filemtime( plugin_dir_path( __FILE__ ) . 'build/edit.js' )
 	);
 
+	wp_enqueue_style(
+		'audioblocks_editor_style',
+		plugins_url( 'src/style/editor.css', __FILE__ )
+	);
+
 	audioblocks_enqueue_view_assets();
 }
 add_action( 'enqueue_block_editor_assets', 'audioblocks_enqueue_block_editor_assets' );

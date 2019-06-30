@@ -4,6 +4,7 @@ import { withSelect } from '@wordpress/data';
 import {
 	Button,
 	ButtonGroup,
+	IconButton,
 	RangeControl,
 	TextControl,
 	Toolbar,
@@ -78,7 +79,7 @@ class LooperEdit extends Component {
 					onSelect={ this.onSelectAudioFile }
 					allowedTypes={ ALLOWED_MEDIA_TYPES }
 					render={ ( { open } ) => (
-						<Button isDefault onClick={ open }>
+						<Button onClick={ open }>
 							{ setAudioButtonLabel }
 						</Button>
 					) }
@@ -101,14 +102,15 @@ class LooperEdit extends Component {
 			<BlockControls>
 				<Toolbar controls={[
 					{
-						icon: 'album',
-						title: 'Show card on page',
-						isActive: showCardOnPage,
+						icon: 'hidden',
+						label: 'Hide card in frontend',
+						isActive: ! showCardOnPage,
 						onClick: () => setAttributes( {
 							showCardOnPage: ! showCardOnPage
 						} )
 					}
 				]}>
+				  { audioMediaUpload }
 				</Toolbar>
 			</BlockControls>
 		);
@@ -143,7 +145,6 @@ class LooperEdit extends Component {
 			<div>
 				{ blockToolbar }
 				{ sidebarControls }
-				{ audioMediaUpload }
 				<LooperView attributes={ attributes } />
 			</div>
 		);
