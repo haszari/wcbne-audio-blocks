@@ -1,0 +1,14 @@
+.audioblocks-audiolooper .audioLoopCard {
+	background: #f2f3f2;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+	font-size: 14px;
+	padding: 10px;
+}
+
+.audioblocks-audiolooper .audioLoopCard-artist {
+	font-weight: bold;
+}
+
+.audioblocks-audiolooper .audioLoopCard-title {
+	font-style: italic;
+}
