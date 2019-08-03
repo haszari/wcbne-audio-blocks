@@ -112,6 +112,15 @@ function getLoopElements() {
 	);
 }
 
+function getPlayButtonElements() {
+	return Array.from(
+		document.querySelectorAll(
+			'.wp-block-soundtrack-playbutton button'
+		)
+	);
+}
+
+
 function initLoop( element ) {
 	if ( ! element.dataset.audioUrl ||
 		 ! element.dataset.tempoBpm ) {
@@ -127,37 +136,49 @@ function initLoop( element ) {
 	return new Looper( props );
 }
 
-const loopers = [];
-
-function initLoops() {
-	const allLoops = getLoopElements();
-
-	allLoops.forEach( loopElement => {
-		loopers.push( initLoop( loopElement ) );
-	} );
+const pageState = {
+	loopers: [],
+	playButtons: [],
 }
 
 function togglePlayback() {
 	const globalTempo = 127;
 
 	audioContext.resume().then( function() {
-		loopers.forEach( looper => {
+		pageState.loopers.forEach( looper => {
 			looper.setPlaybackTempo( globalTempo );
 			looper.toggle();
 		} );
 	} );
 }
 
+function setupPlayButtons() {
+	pageState.playButtons = getPlayButtonElements();
+
+	pageState.playButtons.forEach( playButton => {
+		playButton.addEventListener( 'click', togglePlayback );
+	} );
+}
+
+function setupPageSoundtrack() {
+	const allLoops = getLoopElements();
+
+	allLoops.forEach( loopElement => {
+		pageState.loopers.push( initLoop( loopElement ) );
+	} );
+
+	setupPlayButtons();
+}
+
 function onScrollChange() {
 	const faderPosition = window.pageYOffset / ( document.body.scrollHeight - window.innerHeight);
-	if ( loopers[0] && loopers[1] ) {
-		loopers[0].setPlaybackLevel( 1.0 - faderPosition );
-		loopers[1].setPlaybackLevel( faderPosition );
+	if ( pageState.loopers[0] && pageState.loopers[1] ) {
+		pageState.loopers[0].setPlaybackLevel( 1.0 - faderPosition );
+		pageState.loopers[1].setPlaybackLevel( faderPosition );
 	}
 }
 
 if ( typeof window !== 'undefined' && typeof document !== 'undefined' ) {
-	document.addEventListener( 'DOMContentLoaded', initLoops );
+	document.addEventListener( 'DOMContentLoaded', setupPageSoundtrack );
 	window.addEventListener( 'scroll', onScrollChange );
-	document.addEventListener( 'click', togglePlayback );
 }
