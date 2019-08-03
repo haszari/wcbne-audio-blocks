@@ -1,5 +1,5 @@
 {
-  "name": "audioblocks",
+  "name": "@cbr/pagesoundtrack",
   "version": "0.0.2",
   "description": "",
   "main": "src/index.js",
