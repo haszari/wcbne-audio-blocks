@@ -1,6 +1,11 @@
 <?php
 /*
-Plugin Name: Audio Blocks
+Plugin Name: Page Soundtrack Blocks
+Version: 0.0.2
+Plugin URI: https://github.com/haszari/wcbne-audio-blocks/
+Description: Add a dynamic bpm-synched soundtrack to your pages or posts.
+Author: haszari@cartoonbeats.com
+Text Domain: cbr-pagesoundtrack
 */
 
 add_filter( 'block_categories', function( $categories, $post ) {
@@ -8,8 +13,8 @@ add_filter( 'block_categories', function( $categories, $post ) {
 		$categories,
 		[
 			[
-				'slug'  => 'audioblocks',
-				'title' => __( 'Audio Blocks', 'audioblocks' ),
+				'slug'  => 'soundtrack',
+				'title' => __( 'Soundtrack', 'cbr-pagesoundtrack' ),
 			],
 		]
 	);

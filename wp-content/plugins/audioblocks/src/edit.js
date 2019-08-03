@@ -1,11 +1,17 @@
+import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 
 import LooperEdit from './components/editor';
 import LooperView from './components/save';
 
-registerBlockType( 'audioblocks/loop', {
-	title: 'Audio Loop',
-	icon: 'format-audio',
+registerBlockType( 'soundtrack/loop', {
+	title: __( 'DJ Loop', 'cbr-pagesoundtrack' ),
+	icon: 'album',
+	keywords: [
+		__( 'music' ),
+		__( 'audio' ),
+		__( 'bpm' ),
+	],
 	attributes: {
 		audioUrl: {
 			type: 'string',
@@ -33,7 +39,7 @@ registerBlockType( 'audioblocks/loop', {
 			default: 0,
 		},
 	},
-	category: 'audioblocks',
+	category: 'soundtrack',
 	edit: LooperEdit,
 	save: ( { attributes } ) => (
 		<LooperView

@@ -151,8 +151,8 @@ function togglePlayback() {
 function onScrollChange() {
 	const faderPosition = window.pageYOffset / ( document.body.scrollHeight - window.innerHeight);
 	if ( loopers[0] && loopers[1] ) {
-		loopers[0].setPlaybackLevel( faderPosition );
-		loopers[1].setPlaybackLevel( 1.0 - faderPosition );
+		loopers[0].setPlaybackLevel( 1.0 - faderPosition );
+		loopers[1].setPlaybackLevel( faderPosition );
 	}
 }
 
