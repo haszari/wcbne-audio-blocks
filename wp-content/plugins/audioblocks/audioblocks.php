@@ -38,7 +38,7 @@ add_action( 'wp_enqueue_scripts', 'audioblocks_enqueue_view_assets' );
 function audioblocks_enqueue_block_editor_assets() {
 	wp_enqueue_script(
 		'audioblocks_editor',
-		plugins_url( 'build/edit.js', __FILE__ ),
+		plugins_url( 'build/blocks.js', __FILE__ ),
 		[
 			'wp-blocks',
 			'wp-block-editor',
@@ -47,7 +47,7 @@ function audioblocks_enqueue_block_editor_assets() {
 			'wp-data',
 			'wp-element',
 		],
-		filemtime( plugin_dir_path( __FILE__ ) . 'build/edit.js' )
+		filemtime( plugin_dir_path( __FILE__ ) . 'build/blocks.js' )
 	);
 
 	wp_enqueue_style(

@@ -1,9 +1,9 @@
 const path = require( 'path' );
 
-const config = require("./node_modules/@wordpress/scripts/config/webpack.config");
+const config = require( './node_modules/@wordpress/scripts/config/webpack.config' );
 
 config.entry = {
-	edit: path.resolve( process.cwd(), 'src', 'edit.js' ),
+	blocks: path.resolve( process.cwd(), 'src', 'blocks.js' ),
 	frontend: path.resolve( process.cwd(), 'src', 'frontend.js' ),
 };
 

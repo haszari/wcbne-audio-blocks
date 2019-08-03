@@ -1,8 +1,28 @@
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 
-import LooperEdit from './components/editor';
-import LooperView from './components/save';
+import LooperEdit from './components/dj-loop/editor';
+import LooperView from './components/dj-loop/save';
+
+registerBlockType( 'soundtrack/playbutton', {
+	title: __( 'Play Button', 'cbr-pagesoundtrack' ),
+	icon: 'controls-play',
+	keywords: [
+		__( 'music' ),
+		__( 'audio' ),
+		__( 'bpm' ),
+	],
+	attributes: {
+	},
+	category: 'soundtrack',
+	edit: ( { attributes } ) => (
+		<div>Play Button (TBC)</div>
+	),
+	save: ( { attributes } ) => (
+		<div>Play Button (TBC)</div>
+	),
+} );
+
 
 registerBlockType( 'soundtrack/loop', {
 	title: __( 'DJ Loop', 'cbr-pagesoundtrack' ),
