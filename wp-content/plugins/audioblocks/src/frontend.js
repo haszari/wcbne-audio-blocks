@@ -58,7 +58,7 @@ class Looper {
 	}
 
 	start() {
-		if ( ! this.buffer || this.playing ) {
+		if ( ! this.buffer || this.isPlaying ) {
 			return;
 		}
 		const { loopLengthBeats, startOffsetSeconds, tempoBpm } = this.props;
@@ -93,15 +93,14 @@ class Looper {
 	    this.isPlaying = false;
 	}
 
-	toggle() {
-		if ( this.isPlaying ) {
-			this.stop();
-		}
-		else {
+	setPlaying( shouldBePlaying ) {
+		if ( shouldBePlaying ) {
 			this.start();
 		}
+		else {
+			this.stop();
+		}
 	}
-
 }
 
 function getLoopElements() {
@@ -139,15 +138,36 @@ function initLoop( element ) {
 const pageState = {
 	loopers: [],
 	playButtons: [],
+	isPlaying: false,
+}
+
+function onScrollChange() {
+	const faderPosition = window.pageYOffset / ( document.body.scrollHeight - window.innerHeight);
+	if ( pageState.loopers[0] && pageState.loopers[1] ) {
+		pageState.loopers[0].setPlaybackLevel( 1.0 - faderPosition );
+		pageState.loopers[1].setPlaybackLevel( faderPosition );
+	}
 }
 
 function togglePlayback() {
 	const globalTempo = 127;
 
 	audioContext.resume().then( function() {
+		pageState.isPlaying = ! pageState.isPlaying;
+
+		// initialise volume of each loop
+		onScrollChange();
+
+		// toggle playback of all loops
 		pageState.loopers.forEach( looper => {
 			looper.setPlaybackTempo( globalTempo );
-			looper.toggle();
+			looper.setPlaying( pageState.isPlaying );
+		} );
+
+		// show play state in button label
+		const label = pageState.isPlaying ? 'Stop' : 'Play';
+		pageState.playButtons.forEach( playButton => {
+			playButton.textContent = label;
 		} );
 	} );
 }
@@ -170,13 +190,6 @@ function setupPageSoundtrack() {
 	setupPlayButtons();
 }
 
-function onScrollChange() {
-	const faderPosition = window.pageYOffset / ( document.body.scrollHeight - window.innerHeight);
-	if ( pageState.loopers[0] && pageState.loopers[1] ) {
-		pageState.loopers[0].setPlaybackLevel( 1.0 - faderPosition );
-		pageState.loopers[1].setPlaybackLevel( faderPosition );
-	}
-}
 
 if ( typeof window !== 'undefined' && typeof document !== 'undefined' ) {
 	document.addEventListener( 'DOMContentLoaded', setupPageSoundtrack );

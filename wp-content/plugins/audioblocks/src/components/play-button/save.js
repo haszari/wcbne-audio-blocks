@@ -9,7 +9,7 @@ class PlayButton extends Component {
 	render() {
 		return (
 			<div>
-				<button>Play</button>
+				<button type='button'>Play</button>
 			</div>
 		);
 	}
