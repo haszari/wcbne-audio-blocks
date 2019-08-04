@@ -65,6 +65,7 @@ class LooperEdit extends Component {
 			setAttributes,
 		} = this.props;
 		const {
+			audioArtist,
 			audioId,
 			audioTitle,
 			audioUrl,
@@ -162,11 +163,20 @@ class LooperEdit extends Component {
 			/>
 		);
 
+		const hiddenPlaceholder = showCardOnPage ? undefined : (
+			<Placeholder
+				icon='hidden'
+				label={ `${ audioArtist } – ${ audioTitle }` }
+				instructions={ __( 'On the front end, this loop will be hidden from view, but will play back.', 'cbr-pagesoundtrack' ) }
+			/>
+		);
+
 		return (
 			<div className={ className }>
 				{ blockToolbar }
 				{ sidebarControls }
 				{ placeholder }
+				{ hiddenPlaceholder }
 				<LooperView attributes={ attributes } />
 			</div>
 		);
