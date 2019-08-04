@@ -106,7 +106,7 @@ class Looper {
 function getLoopElements() {
 	return Array.from(
 		document.querySelectorAll(
-			'.audioblocks-audiolooper'
+			'.wp-block-soundtrack-loop div[data-audio-url]'
 		)
 	);
 }

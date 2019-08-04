@@ -64,10 +64,6 @@ registerBlockType( 'soundtrack/loop', {
 	},
 	category: 'soundtrack',
 	edit: LooperEdit,
-	save: ( { attributes } ) => (
-		<LooperView
-			attributes={ attributes }
-		/>
-	),
+	save: LooperView,
 } );
 

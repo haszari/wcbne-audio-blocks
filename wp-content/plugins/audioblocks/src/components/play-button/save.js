@@ -3,9 +3,7 @@ import { Component } from '@wordpress/element';
 
 import library from '../../library';
 
-import PlayButton from './save';
-
-class PlayButtonEdit extends Component {
+class PlayButton extends Component {
 	constructor( { attributes } ) {
 		super( { attributes } );
 	}
@@ -13,12 +11,11 @@ class PlayButtonEdit extends Component {
 	render() {
 		return (
 			<div>
-				<button
-					type='button'>Play</button>
+				<button type='button'>Play</button>
 			</div>
 		);
 	}
 };
 
-export default PlayButtonEdit;
+export default PlayButton;
 

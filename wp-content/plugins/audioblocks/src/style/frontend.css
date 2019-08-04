@@ -1,4 +1,10 @@
-.audioblocks-audiolooper .audioLoopCard {
+
+.wp-block-soundtrack-playbutton,
+.wp-block-soundtrack-loop {
+	margin: 1em 0;
+}
+
+.wp-block-soundtrack-loop .audioLoopCard {
 	background: #f2f3f2;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 	font-size: 14px;
@@ -7,14 +13,14 @@
 }
 
 
-.audioblocks-audiolooper .audioLoopCard.hidden {
+.wp-block-soundtrack-loop .audioLoopCard.hidden {
 	display: none;
 }
 
-.audioblocks-audiolooper .audioLoopCard-artist {
+.wp-block-soundtrack-loop .audioLoopCard-artist {
 	font-weight: bold;
 }
 
-.audioblocks-audiolooper .audioLoopCard-title {
+.wp-block-soundtrack-loop .audioLoopCard-title {
 	font-style: italic;
 }
