@@ -5,6 +5,8 @@ wp-content/plugins/akismet
 wp-content/plugins/hello.php
 wp-content/plugins/index.php
 
+wp-content/plugins/wordpress-importer
+
 wp-content/themes
 wp-content/uploads
 wp-content/languages
