@@ -117,27 +117,27 @@ class LooperEdit extends Component {
 
 		const sidebarControls = (
 			<InspectorControls>
-			    <RangeControl
-			        label="Tempo"
-			        help="Set the tempo of your loop (in beats per minute)."
-			        value={ tempoBpm }
-			        onChange={
-			        	( value ) => setAttributes( { tempoBpm: value } )
-			        }
-			        min={ 50 }
-			        max={ 180 }
-			    />
-			    <ButtonGroup>
+				<RangeControl
+					label="Tempo"
+					help="Set the tempo of your loop (in beats per minute)."
+					value={ tempoBpm }
+					onChange={
+						( value ) => setAttributes( { tempoBpm: value } )
+					}
+					min={ 50 }
+					max={ 180 }
+					/>
+				<ButtonGroup>
 					{ loopSizes }
-			    </ButtonGroup>
-			    <TextControl
-			        label="Start Offset"
-			        help="Set the start time of the first beat of your loop (in seconds)."
-			        value={ startOffsetSeconds }
-			        onChange={
-			        	( value ) => setAttributes( { startOffsetSeconds: value } )
-			        }
-			    />
+				</ButtonGroup>
+				<TextControl
+					label="Start Offset"
+					help="Set the start time of the first beat of your loop (in seconds)."
+					value={ startOffsetSeconds }
+					onChange={
+						( value ) => setAttributes( { startOffsetSeconds: value } )
+					}
+				/>
 			</InspectorControls>
 		);
 
