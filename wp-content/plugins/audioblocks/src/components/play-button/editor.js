@@ -1,5 +1,8 @@
 
 import {
+	Panel,
+	PanelBody,
+	PanelRow,
 	RangeControl,
 } from '@wordpress/components';
 import {
@@ -28,16 +31,21 @@ class PlayButtonEdit extends Component {
 
 		const sidebarControls = (
 			<InspectorControls>
-				<RangeControl
-					label="Playback Tempo"
-					help="Tempo for all loops on the page."
-					value={ library.getTempoValue( playbackBpm ) }
-					onChange={
-						( value ) => setAttributes( { playbackBpm: library.getTempoValue( value ) } )
-					}
-					min={ library.tempoMinimum }
-					max={ library.tempoMaximum }
-				/>
+					<PanelBody
+						title="Playback Settings"
+						initialOpen={ true }
+					>
+						<RangeControl
+							label="Tempo (beats per minute)"
+							help="Set the playback tempo for all loops on the page."
+							value={ library.getTempoValue( playbackBpm ) }
+							onChange={
+								( value ) => setAttributes( { playbackBpm: library.getTempoValue( value ) } )
+							}
+							min={ library.tempoMinimum }
+							max={ library.tempoMaximum }
+						/>
+					</PanelBody>
 			</InspectorControls>
 		);
 
