@@ -5,6 +5,7 @@ import {
 	Button,
 	ButtonGroup,
 	IconButton,
+	Placeholder,
 	RangeControl,
 	TextControl,
 	Toolbar,
@@ -143,10 +144,18 @@ class LooperEdit extends Component {
 			</InspectorControls>
 		);
 
+		const placeholder = this.hasAudio() ? undefined : (
+			<Placeholder
+				icon='album'
+				instructions='Click "Choose audio…" to select an audio file to loop.'
+			/>
+		);
+
 		return (
 			<div className={ className }>
 				{ blockToolbar }
 				{ sidebarControls }
+				{ placeholder }
 				<LooperView attributes={ attributes } />
 			</div>
 		);

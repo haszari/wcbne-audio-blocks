@@ -1,8 +1,12 @@
 
+/* -- Variables -- */
+
 body {
 	--page-soundtrack-bg-color: #f2f3f2;
 	--page-soundtrack-fg-color: #020103;
 }
+
+/* -- Block styles - front end and editor -- */
 
 .wp-block-soundtrack-playbutton,
 .wp-block-soundtrack-loop {
@@ -28,4 +32,14 @@ body {
 
 .wp-block-soundtrack-loop .audioLoopCard-title {
 	font-style: italic;
+}
+
+/* -- Editor styles -- */
+
+.wp-block-soundtrack-loop .components-placeholder {
+	min-height: 80px;
+}
+
+.wp-block-soundtrack-loop .components-placeholder__instructions {
+	margin-bottom: 0;
 }
