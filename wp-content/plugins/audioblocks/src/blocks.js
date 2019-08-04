@@ -10,6 +10,7 @@ import LooperView from './components/dj-loop/save';
 registerBlockType( 'soundtrack/playbutton', {
 	title: __( 'Play Button', 'cbr-pagesoundtrack' ),
 	icon: 'controls-play',
+	description: __( 'Allows users to start and stop the page audio soundtrack.', 'cbr-pagesoundtrack' ),
 	keywords: [
 		__( 'music' ),
 		__( 'audio' ),
@@ -30,6 +31,7 @@ registerBlockType( 'soundtrack/playbutton', {
 registerBlockType( 'soundtrack/loop', {
 	title: __( 'DJ Loop', 'cbr-pagesoundtrack' ),
 	icon: 'album',
+	description: __( 'Add a beat-synched loop to the page soundtrack.', 'cbr-pagesoundtrack' ),
 	keywords: [
 		__( 'music' ),
 		__( 'audio' ),
