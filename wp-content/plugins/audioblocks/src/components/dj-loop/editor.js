@@ -1,12 +1,14 @@
+import { __ } from '@wordpress/i18n';
 
 import { compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 import {
 	Button,
-	ButtonGroup,
 	IconButton,
+	PanelBody,
 	Placeholder,
 	RangeControl,
+	SelectControl,
 	TextControl,
 	Toolbar,
 } from '@wordpress/components';
@@ -120,27 +122,37 @@ class LooperEdit extends Component {
 
 		const sidebarControls = (
 			<InspectorControls>
-				<RangeControl
-					label="Tempo"
-					help="Set the tempo of your loop (in beats per minute)."
-					value={ tempoBpm }
-					onChange={
-						( value ) => setAttributes( { tempoBpm: value } )
-					}
-					min={ library.tempoMinimum }
-					max={ library.tempoMaximum }
-					/>
-				<ButtonGroup>
-					{ loopSizes }
-				</ButtonGroup>
-				<TextControl
-					label="Start Offset"
-					help="Set the start time of the first beat of your loop (in seconds)."
-					value={ startOffsetSeconds }
-					onChange={
-						( value ) => setAttributes( { startOffsetSeconds: value } )
-					}
-				/>
+				<PanelBody
+					title="Loop Settings"
+					initialOpen={ true }
+				>
+					<RangeControl
+						label="Tempo (beats per minute)"
+						help="Set the tempo of the audio file."
+						value={ tempoBpm }
+						onChange={
+							( value ) => setAttributes( { tempoBpm: value } )
+						}
+						min={ library.tempoMinimum }
+						max={ library.tempoMaximum }
+						/>
+					<SelectControl
+						label={ __( 'Loop length', 'cbr-pagesoundtrack' ) }
+						help={ __( 'Set the length of the loop.', 'cbr-pagesoundtrack' ) }
+						value={ loopLengthBeats }
+						onChange={
+							( value ) => setAttributes( { loopLengthBeats: parseInt(value) } )
+						}
+						options={ [
+							{ value: 1, label: '1 beat' },
+							{ value: 4, label: '1 bar (4 beats)' },
+							{ value: 8, label: '2 bars' },
+							{ value: 16, label: '4 bars' },
+							{ value: 32, label: '8 bars' },
+						] }
+					>
+					</SelectControl>
+				</PanelBody>
 			</InspectorControls>
 		);
 

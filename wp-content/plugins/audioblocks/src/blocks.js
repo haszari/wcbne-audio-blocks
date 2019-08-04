@@ -53,7 +53,7 @@ registerBlockType( 'soundtrack/loop', {
 		},
 		loopLengthBeats: {
 			type: 'number',
-			default: 2,
+			default: 4,
 		},
 		showCardOnPage: {
 			type: 'boolean',
