@@ -13,7 +13,6 @@ const looper = ( { attributes } ) => {
 
 	const element = audioUrl ? (
 		<div
-			className='audioblocks-audiolooper'
 			data-audio-url={ audioUrl }
 			data-tempo-bpm={ tempoBpm }
 			data-loop-length-beats={ loopLengthBeats }

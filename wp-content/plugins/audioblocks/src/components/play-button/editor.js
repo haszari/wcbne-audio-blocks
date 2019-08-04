@@ -12,12 +12,16 @@ import PlayButton from './save';
 import library from '../../library';
 
 class PlayButtonEdit extends Component {
-	constructor( { attributes } ) {
-		super( { attributes } );
+	constructor( props ) {
+		super( props );
 	}
 
 	render() {
-		const { attributes, setAttributes } = this.props;
+		const {
+			attributes,
+			setAttributes,
+			className,
+		} = this.props;
 		const {
 			playbackBpm,
 		} = attributes;
@@ -38,9 +42,9 @@ class PlayButtonEdit extends Component {
 		);
 
 		return (
-			<div>
+			<div className={ className }>
 				{ sidebarControls }
-				<button type='button'>Play</button>
+				<PlayButton attributes={ attributes } />
 			</div>
 		);
 	}

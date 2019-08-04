@@ -24,8 +24,8 @@ import LooperView from './save';
 const ALLOWED_MEDIA_TYPES = [ 'audio' ];
 
 class LooperEdit extends Component {
-	constructor( { attributes } ) {
-		super( { attributes } );
+	constructor( props ) {
+		super( props );
 
 		this.onSelectAudioFile = this.onSelectAudioFile.bind( this );
 	}
@@ -57,7 +57,12 @@ class LooperEdit extends Component {
 	}
 
 	render() {
-		const { attributes, setAttributes, isSelected } = this.props;
+		const {
+			attributes,
+			className,
+			isSelected,
+			setAttributes,
+		} = this.props;
 		const {
 			audioId,
 			audioTitle,
@@ -139,7 +144,7 @@ class LooperEdit extends Component {
 		);
 
 		return (
-			<div>
+			<div className={ className }>
 				{ blockToolbar }
 				{ sidebarControls }
 				<LooperView attributes={ attributes } />
