@@ -29,7 +29,7 @@ class PlayButtonEdit extends Component {
 					help="Tempo for all loops on the page."
 					value={ library.getTempoValue( playbackBpm ) }
 					onChange={
-						( value ) => setAttributes( { playbackBpm: value } )
+						( value ) => setAttributes( { playbackBpm: library.getTempoValue( value ) } )
 					}
 					min={ library.tempoMinimum }
 					max={ library.tempoMaximum }
@@ -40,7 +40,7 @@ class PlayButtonEdit extends Component {
 		return (
 			<div>
 				{ sidebarControls }
-				<PlayButton attributes={ attributes } />
+				<button type='button'>Play</button>
 			</div>
 		);
 	}

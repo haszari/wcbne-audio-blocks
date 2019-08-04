@@ -11,15 +11,9 @@ class PlayButtonEdit extends Component {
 	}
 
 	render() {
-		const { attributes } = this.props;
-		const {
-			playbackBpm,
-		} = attributes;
-
 		return (
 			<div>
 				<button
-					data-page-tempo={ library.getTempoValue( playbackBpm ) }
 					type='button'>Play</button>
 			</div>
 		);

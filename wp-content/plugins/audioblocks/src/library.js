@@ -13,7 +13,7 @@ class Library {
 	}
 
 	getTempoValue( raw ) {
-		return isNumber( raw ) ? clamp( raw, this.tempoMinimum, this.tempoMaximum ) : this.tempoDefault;
+		return parseFloat( raw ) ? clamp( raw, this.tempoMinimum, this.tempoMaximum ) : this.tempoDefault;
 	}
 };
 

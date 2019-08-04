@@ -176,12 +176,16 @@ function setupPlayButtons() {
 
 	pageState.playButtons.forEach( playButton => {
 		playButton.addEventListener( 'click', togglePlayback );
-		pageState.playbackTempo = playButton.dataset.pageTempo;
 	} );
 }
 
 function setupPageSoundtrack() {
 	const allLoops = getLoopElements();
+
+	const pageTempoMeta = document.querySelector( '#page-soundtrack-tempo' ).dataset.pageSoundtrackTempo;
+	if ( pageTempoMeta ) {
+		pageState.playbackTempo = pageTempoMeta;
+	}
 
 	allLoops.forEach( loopElement => {
 		pageState.loopers.push( initLoop( loopElement ) );

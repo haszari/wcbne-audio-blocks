@@ -18,9 +18,8 @@ registerBlockType( 'soundtrack/playbutton', {
 	attributes: {
 		playbackBpm: {
 			type: 'number',
-			default: 120,
 			source: 'meta',
-			meta: 'soundtrack-playbackbpm',
+			meta: 'pagesoundtrack_playbackbpm',
 		},
 	},
 	category: 'soundtrack',
