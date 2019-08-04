@@ -34,8 +34,6 @@ class LooperEdit extends Component {
 	}
 
 	onSelectAudioFile( media ) {
-		// console.log( `Selected audio id=${ media.id } url=${ media.url }` );
-
 		if ( ! media || ! media.url ) {
 			this.props.setAttributes( {
 				audioId: undefined,
@@ -76,7 +74,9 @@ class LooperEdit extends Component {
 			startOffsetSeconds,
 		} = attributes;
 
-		const setAudioButtonLabel = this.hasAudio() ? 'Replace audio…' : 'Choose audio…';
+		const setAudioButtonLabel = this.hasAudio() ?
+			__( 'Replace audio…', 'cbr-pagesoundtrack' ) :
+			__( 'Choose audio…', 'cbr-pagesoundtrack' );
 
 		const audioMediaUpload = isSelected ? (
 			<MediaUploadCheck>
@@ -108,7 +108,6 @@ class LooperEdit extends Component {
 				<Toolbar controls={[
 					{
 						icon: 'hidden',
-						label: 'Hide card in frontend',
 						isActive: ! showCardOnPage,
 						onClick: () => setAttributes( {
 							showCardOnPage: ! showCardOnPage
@@ -123,12 +122,12 @@ class LooperEdit extends Component {
 		const sidebarControls = (
 			<InspectorControls>
 				<PanelBody
-					title="Loop Settings"
+					title={ __( 'Loop Settings', 'cbr-pagesoundtrack' ) }
 					initialOpen={ true }
 				>
 					<RangeControl
-						label="Tempo (beats per minute)"
-						help="Set the tempo of the audio file."
+						label={ __( 'Tempo (beats per minute)', 'cbr-pagesoundtrack' ) }
+						help={ __( 'Set the tempo of the audio file.', 'cbr-pagesoundtrack' ) }
 						value={ tempoBpm }
 						onChange={
 							( value ) => setAttributes( { tempoBpm: value } )
@@ -144,11 +143,11 @@ class LooperEdit extends Component {
 							( value ) => setAttributes( { loopLengthBeats: parseInt(value) } )
 						}
 						options={ [
-							{ value: 1, label: '1 beat' },
-							{ value: 4, label: '1 bar (4 beats)' },
-							{ value: 8, label: '2 bars' },
-							{ value: 16, label: '4 bars' },
-							{ value: 32, label: '8 bars' },
+							{ value: 1, label: __( '1 beat', 'cbr-pagesoundtrack' ) },
+							{ value: 4, label: __( '1 bar (4 beats)', 'cbr-pagesoundtrack' ) },
+							{ value: 8, label: __( '2 bars', 'cbr-pagesoundtrack' ) },
+							{ value: 16, label: __( '4 bars', 'cbr-pagesoundtrack' ) },
+							{ value: 32, label: __( '8 bars', 'cbr-pagesoundtrack' ) },
 						] }
 					>
 					</SelectControl>
@@ -159,7 +158,7 @@ class LooperEdit extends Component {
 		const placeholder = this.hasAudio() ? undefined : (
 			<Placeholder
 				icon='album'
-				instructions='Click "Choose audio…" to select an audio file to loop.'
+				instructions={ __( 'Click "Choose audio…" to select an audio file to loop.', 'cbr-pagesoundtrack' ) }
 			/>
 		);
 

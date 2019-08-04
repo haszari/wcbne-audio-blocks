@@ -1,8 +1,6 @@
-
+import { __ } from '@wordpress/i18n';
 import {
-	Panel,
 	PanelBody,
-	PanelRow,
 	RangeControl,
 } from '@wordpress/components';
 import {
@@ -32,12 +30,12 @@ class PlayButtonEdit extends Component {
 		const sidebarControls = (
 			<InspectorControls>
 					<PanelBody
-						title="Playback Settings"
+						title={ __( 'Playback Settings', 'cbr-pagesoundtrack' ) }
 						initialOpen={ true }
 					>
 						<RangeControl
-							label="Tempo (beats per minute)"
-							help="Set the playback tempo for all loops on the page."
+							label={ __( 'Tempo (beats per minute)', 'cbr-pagesoundtrack' ) }
+							help={ __( 'Set the playback tempo for all loops on the page.', 'cbr-pagesoundtrack' ) }
 							value={ library.getTempoValue( playbackBpm ) }
 							onChange={
 								( value ) => setAttributes( { playbackBpm: library.getTempoValue( value ) } )
