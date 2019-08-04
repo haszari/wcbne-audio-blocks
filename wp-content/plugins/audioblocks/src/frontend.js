@@ -139,6 +139,7 @@ const pageState = {
 	loopers: [],
 	playButtons: [],
 	isPlaying: false,
+	playbackTempo: 125,
 }
 
 function onScrollChange() {
@@ -150,8 +151,6 @@ function onScrollChange() {
 }
 
 function togglePlayback() {
-	const globalTempo = 127;
-
 	audioContext.resume().then( function() {
 		pageState.isPlaying = ! pageState.isPlaying;
 
@@ -160,7 +159,7 @@ function togglePlayback() {
 
 		// toggle playback of all loops
 		pageState.loopers.forEach( looper => {
-			looper.setPlaybackTempo( globalTempo );
+			looper.setPlaybackTempo( pageState.playbackTempo );
 			looper.setPlaying( pageState.isPlaying );
 		} );
 
@@ -177,6 +176,7 @@ function setupPlayButtons() {
 
 	pageState.playButtons.forEach( playButton => {
 		playButton.addEventListener( 'click', togglePlayback );
+		pageState.playbackTempo = playButton.dataset.pageTempo;
 	} );
 }
 

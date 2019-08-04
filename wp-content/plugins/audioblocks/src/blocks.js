@@ -2,6 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 
 import PlayButton from './components/play-button/save';
+import PlayButtonEdit from './components/play-button/editor';
 
 import LooperEdit from './components/dj-loop/editor';
 import LooperView from './components/dj-loop/save';
@@ -15,9 +16,15 @@ registerBlockType( 'soundtrack/playbutton', {
 		__( 'bpm' ),
 	],
 	attributes: {
+		playbackBpm: {
+			type: 'number',
+			default: 120,
+			source: 'meta',
+			meta: 'soundtrack-playbackbpm',
+		},
 	},
 	category: 'soundtrack',
-	edit: PlayButton,
+	edit: PlayButtonEdit,
 	save: PlayButton,
 } );
 

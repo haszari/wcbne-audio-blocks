@@ -1,19 +1,30 @@
 
 import { Component } from '@wordpress/element';
 
-class PlayButton extends Component {
+import library from '../../library';
+
+import PlayButton from './save';
+
+class PlayButtonEdit extends Component {
 	constructor( { attributes } ) {
 		super( { attributes } );
 	}
 
 	render() {
+		const { attributes } = this.props;
+		const {
+			playbackBpm,
+		} = attributes;
+
 		return (
 			<div>
-				<button type='button'>Play</button>
+				<button
+					data-page-tempo={ library.getTempoValue( playbackBpm ) }
+					type='button'>Play</button>
 			</div>
 		);
 	}
 };
 
-export default PlayButton;
+export default PlayButtonEdit;
 

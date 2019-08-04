@@ -17,14 +17,11 @@ import {
 } from '@wordpress/block-editor';
 import { Component } from '@wordpress/element';
 
+import library from '../../library';
+
 import LooperView from './save';
 
 const ALLOWED_MEDIA_TYPES = [ 'audio' ];
-
-function AudioMediaUpload( ) {
-	// const media = attributes.audio;
-	return ;
-}
 
 class LooperEdit extends Component {
 	constructor( { attributes } ) {
@@ -124,8 +121,8 @@ class LooperEdit extends Component {
 					onChange={
 						( value ) => setAttributes( { tempoBpm: value } )
 					}
-					min={ 50 }
-					max={ 180 }
+					min={ library.tempoMinimum }
+					max={ library.tempoMaximum }
 					/>
 				<ButtonGroup>
 					{ loopSizes }
