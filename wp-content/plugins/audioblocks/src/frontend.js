@@ -139,7 +139,7 @@ const pageState = {
 	loopers: [],
 	playButtons: [],
 	isPlaying: false,
-	playbackTempo: 125,
+	playbackTempo: 120,
 }
 
 function onScrollChange() {
@@ -179,13 +179,25 @@ function setupPlayButtons() {
 	} );
 }
 
+function getPageTempo() {
+	let tempo = 120;
+
+	const pageTempoMetaElement = document.querySelector( '#page-soundtrack-tempo' );
+	if ( ! pageTempoMetaElement ) {
+		return tempo;
+	}
+
+	if ( ! pageTempoMetaElement.dataset.pageSoundtrackTempo ) {
+		return tempo;
+	}
+
+	return pageTempoMetaElement.dataset.pageSoundtrackTempo;
+}
+
 function setupPageSoundtrack() {
 	const allLoops = getLoopElements();
 
-	const pageTempoMeta = document.querySelector( '#page-soundtrack-tempo' ).dataset.pageSoundtrackTempo;
-	if ( pageTempoMeta ) {
-		pageState.playbackTempo = pageTempoMeta;
-	}
+	pageState.playbackTempo = getPageTempo();
 
 	allLoops.forEach( loopElement => {
 		pageState.loopers.push( initLoop( loopElement ) );

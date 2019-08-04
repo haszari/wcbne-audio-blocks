@@ -8,7 +8,7 @@ class Library {
 	constructor() {
 		// constants
 		this.tempoMaximum = 180;
-		this.tempoDefault = 125;
+		this.tempoDefault = 120;
 		this.tempoMinimum = 50;
 	}
 
