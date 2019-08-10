@@ -1,11 +1,15 @@
 {
   "name": "@cbr/pagesoundtrack",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "src/index.js",
   "scripts": {
     "start": "wp-scripts start",
     "build": "wp-scripts build",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "lint:pkg-json": "wp-scripts lint-pkg-json",
+    "lint": "npm run lint:js && npm run lint:css && npm run lint:pkg-json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
