@@ -144,9 +144,19 @@ const pageState = {
 
 function onScrollChange() {
 	const faderPosition = window.pageYOffset / ( document.body.scrollHeight - window.innerHeight);
-	if ( pageState.loopers[0] && pageState.loopers[1] ) {
-		pageState.loopers[0].setPlaybackLevel( 1.0 - faderPosition );
-		pageState.loopers[1].setPlaybackLevel( faderPosition );
+
+	const numLoops = pageState.loopers.length;
+
+	if ( 1 === numLoops ) {
+		// constant level
+		pageState.loopers[0].setPlaybackLevel( 1.0 );
+	}
+	if ( 2 <= numLoops ) {
+		// crossfade, top of page = loop 1, end of page = loop 2
+		if ( pageState.loopers[0] && pageState.loopers[1] ) {
+			pageState.loopers[0].setPlaybackLevel( 1.0 - faderPosition );
+			pageState.loopers[1].setPlaybackLevel( faderPosition );
+		}
 	}
 }
 
