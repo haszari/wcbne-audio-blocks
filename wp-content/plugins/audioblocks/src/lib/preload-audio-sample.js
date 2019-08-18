@@ -4,10 +4,10 @@ function loadSample(url, audioContext, callback) {
 	request.open('GET', url);
 	request.responseType = 'arraybuffer';
 	request.onload = function () {
-		console.log('sample loaded, decoding');
+		// console.log('sample loaded, decoding');
 		audioContext.decodeAudioData(request.response, callback);
 	};
-	console.log('loading sample');
+	// console.log('loading sample');
 	request.send();
 }
 
