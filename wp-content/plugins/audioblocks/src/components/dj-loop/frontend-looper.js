@@ -10,8 +10,6 @@ class Looper {
 		this.props = props;
 		const { audioUrl, tempoBpm, audioContext } = this.props;
 
-		this.audioContext = audioContext;
-
 		this.secondsPerBeat = getSecondsPerBeat( tempoBpm );
 		this.player = null;
 		this.fader = null;
@@ -21,16 +19,23 @@ class Looper {
 		this.playbackBpm = tempoBpm;
 		this.playbackLevel = 0;
 
-		if ( audioUrl ) {
-			loadSample( audioUrl, audioContext, ( buffer ) => {
-				this.buffer = buffer;
-			} );
-		}
+	}
+
+	loadAudioPromise() {
+		return new Promise( ( resolve, reject ) => {
+			if ( this.props.audioUrl ) {
+				loadSample( this.props.audioUrl, this.props.audioContext, ( buffer ) => {
+					this.buffer = buffer;
+					resolve();
+				} );
+			}
+		} );
 	}
 
 	setPlaybackTempo( bpm ) {
 		this.playbackBpm = bpm;
 	}
+
 	setPlaybackLevel( level ) {
 		const fadeTime = 1 * getSecondsPerBeat( this.playbackBpm );
 
@@ -39,7 +44,7 @@ class Looper {
 		if ( this.fader ) {
 			this.fader.gain.linearRampToValueAtTime(
 				this.playbackLevel,
-				this.audioContext.currentTime + fadeTime
+				this.props.audioContext.currentTime + fadeTime
 			);
 		}
 
@@ -51,7 +56,7 @@ class Looper {
 		}
 		const { loopLengthBeats, loopStartBeats, startOffsetSeconds, tempoBpm } = this.props;
 
-		this.player = this.audioContext.createBufferSource();
+		this.player = this.props.audioContext.createBufferSource();
 
 		this.player.buffer = this.buffer;
 		this.player.playbackRate.value = this.playbackBpm / tempoBpm;
@@ -60,11 +65,11 @@ class Looper {
 		this.player.loopStart = startOffsetSeconds + ( loopStartBeats * this.secondsPerBeat );
 		this.player.loopEnd = this.player.loopStart + ( loopLengthBeats * this.secondsPerBeat );
 
-		this.fader = this.audioContext.createGain();
+		this.fader = this.props.audioContext.createGain();
 		this.fader.gain.value = this.playbackLevel;
 
 		this.player.connect( this.fader );
-		this.fader.connect( this.audioContext.destination );
+		this.fader.connect( this.props.audioContext.destination );
 
 		const playNow = 0;
 		this.player.start( playNow, this.player.loopStart );

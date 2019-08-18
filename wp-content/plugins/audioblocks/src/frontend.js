@@ -21,24 +21,6 @@ function getPlayButtonElements() {
 	);
 }
 
-
-function initLoop( element ) {
-	if ( ! element.dataset.audioUrl ||
-		 ! element.dataset.tempoBpm ) {
-		return;
-	}
-
-	const props = {
-		audioContext: audioContext,
-		audioUrl: element.dataset.audioUrl,
-		tempoBpm: parseFloat( element.dataset.tempoBpm ),
-		loopLengthBeats: parseFloat( element.dataset.loopLengthBeats ),
-		loopStartBeats: parseFloat( element.dataset.loopStartBeats ),
-		startOffsetSeconds: parseFloat( element.dataset.startOffsetSeconds ),
-	};
-	return new Looper( props );
-}
-
 const pageState = {
 	loopers: [],
 	playButtons: [],
@@ -95,10 +77,22 @@ function togglePlayback() {
 	} );
 }
 
+function disablePlayButtons() {
+	pageState.playButtons = getPlayButtonElements();
+
+	pageState.playButtons.forEach( playButton => {
+		playButton.disabled = true;
+		playButton.textContent = 'Loading'
+	} );
+}
+
+
 function setupPlayButtons() {
 	pageState.playButtons = getPlayButtonElements();
 
 	pageState.playButtons.forEach( playButton => {
+		playButton.disabled = false;
+		playButton.textContent = 'Play'
 		playButton.addEventListener( 'click', togglePlayback );
 	} );
 }
@@ -119,15 +113,37 @@ function getPageTempo() {
 }
 
 function setupPageSoundtrack() {
+	disablePlayButtons();
+
 	const allLoops = getLoopElements();
 
 	pageState.playbackTempo = getPageTempo();
 
-	allLoops.forEach( loopElement => {
-		pageState.loopers.push( initLoop( loopElement ) );
+	const loopersProps = allLoops.map( element => {
+		return {
+			audioContext: audioContext,
+			audioUrl: element.dataset.audioUrl,
+			tempoBpm: parseFloat( element.dataset.tempoBpm ),
+			loopLengthBeats: parseFloat( element.dataset.loopLengthBeats ),
+			loopStartBeats: parseFloat( element.dataset.loopStartBeats ),
+			startOffsetSeconds: parseFloat( element.dataset.startOffsetSeconds ),
+		};
 	} );
 
-	setupPlayButtons();
+	const loaders = [];
+	loopersProps.forEach( props => {
+		if ( ! props.audioUrl ||
+			 ! props.tempoBpm ) {
+			return;
+		}
+		const looper = new Looper( props );
+		pageState.loopers.push( looper );
+		loaders.push( looper.loadAudioPromise() );
+	} );
+
+	Promise.all( loaders ).then( () => {
+		setupPlayButtons();
+	} );
 }
 
 
