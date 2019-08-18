@@ -1,7 +1,9 @@
 
+/**
+ * External dependencies
+ */
 import {
 	clamp,
-	isNumber,
 } from 'lodash';
 
 class Library {
@@ -15,7 +17,7 @@ class Library {
 	getTempoValue( raw ) {
 		return parseFloat( raw ) ? clamp( raw, this.tempoMinimum, this.tempoMaximum ) : this.tempoDefault;
 	}
-};
+}
 
 export default ( new Library() );
 
