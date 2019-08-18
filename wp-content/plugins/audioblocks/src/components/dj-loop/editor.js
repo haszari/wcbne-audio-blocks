@@ -121,11 +121,19 @@ class LooperEdit extends Component {
 			</BlockControls>
 		);
 
-		const loopPanel = (
+		const songBeatGridPanel = (
 			<PanelBody
-				title={ __( 'Loop Settings', 'cbr-pagesoundtrack' ) }
+				title={ __( 'Song Settings', 'cbr-pagesoundtrack' ) }
 				initialOpen={ true }
 			>
+				<TextControl
+					label={ __( 'Downbeat offset', 'cbr-pagesoundtrack' ) }
+					help={ __( 'The position of the first beat (in seconds).', 'cbr-pagesoundtrack' ) }
+					value={ startOffsetSeconds }
+					onChange={
+						( value ) => setAttributes( { startOffsetSeconds: value } )
+					}
+					/>
 				<RangeControl
 					label={ __( 'Tempo (beats per minute)', 'cbr-pagesoundtrack' ) }
 					help={ __( 'Set the tempo of the audio file.', 'cbr-pagesoundtrack' ) }
@@ -136,6 +144,14 @@ class LooperEdit extends Component {
 					min={ library.tempoMinimum }
 					max={ library.tempoMaximum }
 					/>
+			</PanelBody>
+		);
+
+		const loopPanel = (
+			<PanelBody
+				title={ __( 'Loop Settings', 'cbr-pagesoundtrack' ) }
+				initialOpen={ true }
+			>
 				<RangeControl
 					label={ __( 'Loop start (bars)', 'cbr-pagesoundtrack' ) }
 					help={ __( 'Select the start beat for the loop.', 'cbr-pagesoundtrack' ) }
@@ -165,22 +181,6 @@ class LooperEdit extends Component {
 			</PanelBody>
 		);
 
-		const advancedPanel = (
-			<PanelBody
-				title={ __( 'Advanced Loop Settings', 'cbr-pagesoundtrack' ) }
-				initialOpen={ false }
-			>
-				<TextControl
-					label={ __( 'Downbeat offset', 'cbr-pagesoundtrack' ) }
-					help={ __( 'The position of the first beat (in seconds).', 'cbr-pagesoundtrack' ) }
-					value={ startOffsetSeconds }
-					onChange={
-						( value ) => setAttributes( { startOffsetSeconds: value } )
-					}
-					/>
-			</PanelBody>
-		);
-
 		const placeholder = this.hasAudio() ? undefined : (
 			<Placeholder
 				icon='album'
@@ -199,8 +199,8 @@ class LooperEdit extends Component {
 		return (
 			<div className={ className }>
 				<InspectorControls>
+					{ songBeatGridPanel }
 					{ loopPanel }
-					{ advancedPanel }
 				</InspectorControls>
 				{ blockToolbar }
 				{ placeholder }
