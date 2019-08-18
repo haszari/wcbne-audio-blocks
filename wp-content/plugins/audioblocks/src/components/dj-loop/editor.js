@@ -120,40 +120,54 @@ class LooperEdit extends Component {
 			</BlockControls>
 		);
 
-		const sidebarControls = (
-			<InspectorControls>
-				<PanelBody
-					title={ __( 'Loop Settings', 'cbr-pagesoundtrack' ) }
-					initialOpen={ true }
+		const loopPanel = (
+			<PanelBody
+				title={ __( 'Loop Settings', 'cbr-pagesoundtrack' ) }
+				initialOpen={ true }
+			>
+				<RangeControl
+					label={ __( 'Tempo (beats per minute)', 'cbr-pagesoundtrack' ) }
+					help={ __( 'Set the tempo of the audio file.', 'cbr-pagesoundtrack' ) }
+					value={ tempoBpm }
+					onChange={
+						( value ) => setAttributes( { tempoBpm: value } )
+					}
+					min={ library.tempoMinimum }
+					max={ library.tempoMaximum }
+					/>
+				<SelectControl
+					label={ __( 'Loop length', 'cbr-pagesoundtrack' ) }
+					help={ __( 'Set the length of the loop.', 'cbr-pagesoundtrack' ) }
+					value={ loopLengthBeats }
+					onChange={
+						( value ) => setAttributes( { loopLengthBeats: parseInt(value) } )
+					}
+					options={ [
+						{ value: 1, label: __( '1 beat', 'cbr-pagesoundtrack' ) },
+						{ value: 4, label: __( '1 bar (4 beats)', 'cbr-pagesoundtrack' ) },
+						{ value: 8, label: __( '2 bars', 'cbr-pagesoundtrack' ) },
+						{ value: 16, label: __( '4 bars', 'cbr-pagesoundtrack' ) },
+						{ value: 32, label: __( '8 bars', 'cbr-pagesoundtrack' ) },
+					] }
 				>
-					<RangeControl
-						label={ __( 'Tempo (beats per minute)', 'cbr-pagesoundtrack' ) }
-						help={ __( 'Set the tempo of the audio file.', 'cbr-pagesoundtrack' ) }
-						value={ tempoBpm }
-						onChange={
-							( value ) => setAttributes( { tempoBpm: value } )
-						}
-						min={ library.tempoMinimum }
-						max={ library.tempoMaximum }
-						/>
-					<SelectControl
-						label={ __( 'Loop length', 'cbr-pagesoundtrack' ) }
-						help={ __( 'Set the length of the loop.', 'cbr-pagesoundtrack' ) }
-						value={ loopLengthBeats }
-						onChange={
-							( value ) => setAttributes( { loopLengthBeats: parseInt(value) } )
-						}
-						options={ [
-							{ value: 1, label: __( '1 beat', 'cbr-pagesoundtrack' ) },
-							{ value: 4, label: __( '1 bar (4 beats)', 'cbr-pagesoundtrack' ) },
-							{ value: 8, label: __( '2 bars', 'cbr-pagesoundtrack' ) },
-							{ value: 16, label: __( '4 bars', 'cbr-pagesoundtrack' ) },
-							{ value: 32, label: __( '8 bars', 'cbr-pagesoundtrack' ) },
-						] }
-					>
-					</SelectControl>
-				</PanelBody>
-			</InspectorControls>
+				</SelectControl>
+			</PanelBody>
+		);
+
+		const advancedPanel = (
+			<PanelBody
+				title={ __( 'Advanced Loop Settings', 'cbr-pagesoundtrack' ) }
+				initialOpen={ false }
+			>
+				<TextControl
+					label={ __( 'Downbeat offset', 'cbr-pagesoundtrack' ) }
+					help={ __( 'The position of the first beat (in seconds).', 'cbr-pagesoundtrack' ) }
+					value={ startOffsetSeconds }
+					onChange={
+						( value ) => setAttributes( { startOffsetSeconds: value } )
+					}
+					/>
+			</PanelBody>
 		);
 
 		const placeholder = this.hasAudio() ? undefined : (
@@ -173,8 +187,11 @@ class LooperEdit extends Component {
 
 		return (
 			<div className={ className }>
+				<InspectorControls>
+					{ loopPanel }
+					{ advancedPanel }
+				</InspectorControls>
 				{ blockToolbar }
-				{ sidebarControls }
 				{ placeholder }
 				{ hiddenPlaceholder }
 				<LooperView attributes={ attributes } />

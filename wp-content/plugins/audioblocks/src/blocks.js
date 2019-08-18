@@ -60,7 +60,7 @@ registerBlockType( 'soundtrack/loop', {
 			default: true,
 		},
 		startOffsetSeconds: {
-			type: 'number',
+			type: 'string',
 			default: 0,
 		},
 	},

@@ -78,7 +78,8 @@ class Looper {
 		this.player.connect( this.fader );
 		this.fader.connect( audioContext.destination );
 
-		this.player.start();
+		const playNow = 0;
+		this.player.start( playNow, startOffsetSeconds );
 
 	    this.isPlaying = true;
 	}
