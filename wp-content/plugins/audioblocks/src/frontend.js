@@ -61,7 +61,7 @@ class Looper {
 		if ( ! this.buffer || this.isPlaying ) {
 			return;
 		}
-		const { loopLengthBeats, startOffsetSeconds, tempoBpm } = this.props;
+		const { loopLengthBeats, loopStartBeats, startOffsetSeconds, tempoBpm } = this.props;
 
 		this.player = audioContext.createBufferSource();
 
@@ -69,8 +69,8 @@ class Looper {
 		this.player.playbackRate.value = this.playbackBpm / tempoBpm;
 
 		this.player.loop = true;
-		this.player.loopStart = startOffsetSeconds;
-		this.player.loopEnd = startOffsetSeconds + ( loopLengthBeats * this.secondsPerBeat );
+		this.player.loopStart = startOffsetSeconds + ( loopStartBeats * this.secondsPerBeat );
+		this.player.loopEnd = this.player.loopStart + ( loopLengthBeats * this.secondsPerBeat );
 
 		this.fader = audioContext.createGain();
 		this.fader.gain.value = this.playbackLevel;
@@ -79,7 +79,7 @@ class Looper {
 		this.fader.connect( audioContext.destination );
 
 		const playNow = 0;
-		this.player.start( playNow, startOffsetSeconds );
+		this.player.start( playNow, this.player.loopStart );
 
 	    this.isPlaying = true;
 	}
@@ -131,6 +131,7 @@ function initLoop( element ) {
 		audioUrl: element.dataset.audioUrl,
 		tempoBpm: parseFloat( element.dataset.tempoBpm ),
 		loopLengthBeats: parseFloat( element.dataset.loopLengthBeats ),
+		loopStartBeats: parseFloat( element.dataset.loopStartBeats ),
 		startOffsetSeconds: parseFloat( element.dataset.startOffsetSeconds ),
 	};
 	return new Looper( props );

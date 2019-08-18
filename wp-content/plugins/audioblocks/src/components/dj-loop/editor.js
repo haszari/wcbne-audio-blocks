@@ -71,6 +71,7 @@ class LooperEdit extends Component {
 			audioUrl,
 			tempoBpm,
 			loopLengthBeats,
+			loopStartBeats,
 			showCardOnPage,
 			startOffsetSeconds,
 		} = attributes;
@@ -120,20 +121,44 @@ class LooperEdit extends Component {
 			</BlockControls>
 		);
 
-		const loopPanel = (
+		const songBeatGridPanel = (
 			<PanelBody
-				title={ __( 'Loop Settings', 'cbr-pagesoundtrack' ) }
+				title={ __( 'Song Settings', 'cbr-pagesoundtrack' ) }
 				initialOpen={ true }
 			>
-				<RangeControl
+				<TextControl
+					label={ __( 'Downbeat offset', 'cbr-pagesoundtrack' ) }
+					help={ __( 'The position of the first beat (in seconds).', 'cbr-pagesoundtrack' ) }
+					value={ startOffsetSeconds }
+					onChange={
+						( value ) => setAttributes( { startOffsetSeconds: value } )
+					}
+					/>
+				<TextControl
 					label={ __( 'Tempo (beats per minute)', 'cbr-pagesoundtrack' ) }
 					help={ __( 'Set the tempo of the audio file.', 'cbr-pagesoundtrack' ) }
 					value={ tempoBpm }
 					onChange={
 						( value ) => setAttributes( { tempoBpm: value } )
 					}
-					min={ library.tempoMinimum }
-					max={ library.tempoMaximum }
+					/>
+			</PanelBody>
+		);
+
+		const loopPanel = (
+			<PanelBody
+				title={ __( 'Loop Settings', 'cbr-pagesoundtrack' ) }
+				initialOpen={ true }
+			>
+				<RangeControl
+					label={ __( 'Loop start (bars)', 'cbr-pagesoundtrack' ) }
+					help={ __( 'Select the start beat for the loop.', 'cbr-pagesoundtrack' ) }
+					value={ loopStartBeats / 4 }
+					onChange={
+						( value ) => setAttributes( { loopStartBeats: value * 4 } )
+					}
+					min={ 0 }
+					max={ 300 }
 					/>
 				<SelectControl
 					label={ __( 'Loop length', 'cbr-pagesoundtrack' ) }
@@ -151,22 +176,6 @@ class LooperEdit extends Component {
 					] }
 				>
 				</SelectControl>
-			</PanelBody>
-		);
-
-		const advancedPanel = (
-			<PanelBody
-				title={ __( 'Advanced Loop Settings', 'cbr-pagesoundtrack' ) }
-				initialOpen={ false }
-			>
-				<TextControl
-					label={ __( 'Downbeat offset', 'cbr-pagesoundtrack' ) }
-					help={ __( 'The position of the first beat (in seconds).', 'cbr-pagesoundtrack' ) }
-					value={ startOffsetSeconds }
-					onChange={
-						( value ) => setAttributes( { startOffsetSeconds: value } )
-					}
-					/>
 			</PanelBody>
 		);
 
@@ -188,8 +197,8 @@ class LooperEdit extends Component {
 		return (
 			<div className={ className }>
 				<InspectorControls>
+					{ songBeatGridPanel }
 					{ loopPanel }
-					{ advancedPanel }
 				</InspectorControls>
 				{ blockToolbar }
 				{ placeholder }
