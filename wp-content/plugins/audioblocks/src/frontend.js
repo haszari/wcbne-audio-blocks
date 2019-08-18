@@ -1,97 +1,9 @@
 
-import loadSample from './lib/preload-audio-sample';
+import Looper from './components/dj-loop/frontend-looper';
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioContext = new AudioContext();
 
-function getSecondsPerBeat( tempoBpm ) {
-	return 60.0 / tempoBpm;
-}
-
-class Looper {
-	constructor( attributes ) {
-		this.props = attributes;
-		const { audioUrl, tempoBpm } = this.props;
-
-		this.secondsPerBeat = getSecondsPerBeat( tempoBpm );
-		this.player = null;
-		this.fader = null;
-		this.isPlaying = false;
-		this.buffer = null;
-
-		this.playbackBpm = tempoBpm;
-		this.playbackLevel = 0;
-
-		if ( audioUrl ) {
-			loadSample( audioUrl, audioContext, ( buffer ) => {
-				this.buffer = buffer;
-			} );
-		}
-	}
-
-	setPlaybackTempo( bpm ) {
-		this.playbackBpm = bpm;
-	}
-	setPlaybackLevel( level ) {
-		const fadeTime = 1 * getSecondsPerBeat( this.playbackBpm );
-
-		this.playbackLevel = level;
-
-		if ( this.fader ) {
-			this.fader.gain.linearRampToValueAtTime(
-				this.playbackLevel,
-				audioContext.currentTime + fadeTime
-			);
-		}
-
-	}
-
-	start() {
-		if ( ! this.buffer || this.isPlaying ) {
-			return;
-		}
-		const { loopLengthBeats, loopStartBeats, startOffsetSeconds, tempoBpm } = this.props;
-
-		this.player = audioContext.createBufferSource();
-
-		this.player.buffer = this.buffer;
-		this.player.playbackRate.value = this.playbackBpm / tempoBpm;
-
-		this.player.loop = true;
-		this.player.loopStart = startOffsetSeconds + ( loopStartBeats * this.secondsPerBeat );
-		this.player.loopEnd = this.player.loopStart + ( loopLengthBeats * this.secondsPerBeat );
-
-		this.fader = audioContext.createGain();
-		this.fader.gain.value = this.playbackLevel;
-
-		this.player.connect( this.fader );
-		this.fader.connect( audioContext.destination );
-
-		const playNow = 0;
-		this.player.start( playNow, this.player.loopStart );
-
-	    this.isPlaying = true;
-	}
-
-	stop() {
-		if ( ! this.player ) {
-			return;
-		}
-
-	    this.player.stop();
-	    this.player = null;
-	    this.isPlaying = false;
-	}
-
-	setPlaying( shouldBePlaying ) {
-		if ( shouldBePlaying ) {
-			this.start();
-		}
-		else {
-			this.stop();
-		}
-	}
-}
 
 function getLoopElements() {
 	return Array.from(
@@ -117,6 +29,7 @@ function initLoop( element ) {
 	}
 
 	const props = {
+		audioContext: audioContext,
 		audioUrl: element.dataset.audioUrl,
 		tempoBpm: parseFloat( element.dataset.tempoBpm ),
 		loopLengthBeats: parseFloat( element.dataset.loopLengthBeats ),
