@@ -48,7 +48,7 @@ registerBlockType( 'soundtrack/loop', {
 			type: 'string',
 		},
 		tempoBpm: {
-			type: 'number',
+			type: 'string',
 			default: 120,
 		},
 		loopLengthBeats: {
