@@ -71,6 +71,7 @@ class LooperEdit extends Component {
 			audioUrl,
 			tempoBpm,
 			loopLengthBeats,
+			loopStartBeats,
 			showCardOnPage,
 			startOffsetSeconds,
 		} = attributes;
@@ -134,6 +135,16 @@ class LooperEdit extends Component {
 					}
 					min={ library.tempoMinimum }
 					max={ library.tempoMaximum }
+					/>
+				<RangeControl
+					label={ __( 'Loop start (bars)', 'cbr-pagesoundtrack' ) }
+					help={ __( 'Select the start beat for the loop.', 'cbr-pagesoundtrack' ) }
+					value={ loopStartBeats / 4 }
+					onChange={
+						( value ) => setAttributes( { loopStartBeats: value * 4 } )
+					}
+					min={ 0 }
+					max={ 300 }
 					/>
 				<SelectControl
 					label={ __( 'Loop length', 'cbr-pagesoundtrack' ) }

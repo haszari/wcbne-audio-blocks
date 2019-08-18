@@ -7,6 +7,7 @@ const looper = ( { attributes } ) => {
 		audioUrl,
 		tempoBpm,
 		loopLengthBeats,
+		loopStartBeats,
 		showCardOnPage,
 		startOffsetSeconds,
 	} = attributes;
@@ -16,6 +17,7 @@ const looper = ( { attributes } ) => {
 			data-audio-url={ audioUrl }
 			data-tempo-bpm={ tempoBpm }
 			data-loop-length-beats={ loopLengthBeats }
+			data-loop-start-beats={ loopStartBeats }
 			data-start-offset-seconds={ startOffsetSeconds }
 		>
 			<LoopCard hidden={ ! showCardOnPage } artist={ audioArtist } title={ audioTitle } />

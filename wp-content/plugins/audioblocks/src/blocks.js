@@ -55,6 +55,10 @@ registerBlockType( 'soundtrack/loop', {
 			type: 'number',
 			default: 4,
 		},
+		loopStartBeats: {
+			type: 'number',
+			default: 0,
+		},
 		showCardOnPage: {
 			type: 'boolean',
 			default: true,
