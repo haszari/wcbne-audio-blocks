@@ -134,15 +134,13 @@ class LooperEdit extends Component {
 						( value ) => setAttributes( { startOffsetSeconds: value } )
 					}
 					/>
-				<RangeControl
+				<TextControl
 					label={ __( 'Tempo (beats per minute)', 'cbr-pagesoundtrack' ) }
 					help={ __( 'Set the tempo of the audio file.', 'cbr-pagesoundtrack' ) }
 					value={ tempoBpm }
 					onChange={
 						( value ) => setAttributes( { tempoBpm: value } )
 					}
-					min={ library.tempoMinimum }
-					max={ library.tempoMaximum }
 					/>
 			</PanelBody>
 		);
