@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Page Soundtrack Blocks
-Version: 0.0.2
+Version: 0.0.4
 Plugin URI: https://github.com/haszari/wcbne-audio-blocks/
 Description: Add a dynamic bpm-synched soundtrack to your pages or posts.
 Author: haszari@cartoonbeats.com
