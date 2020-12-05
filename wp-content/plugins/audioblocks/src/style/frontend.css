@@ -13,6 +13,16 @@ body {
 	margin: 1em 0;
 }
 
+.wp-block-soundtrack-playbutton button[disabled] {
+	background-color: lightgray;
+	font-size: 50%;
+	cursor: default;
+}
+
+.wp-block-soundtrack-playbutton button[disabled]:hover {
+	text-decoration: none;
+}
+
 .wp-block-soundtrack-loop .audioLoopCard {
 	background: var(--page-soundtrack-bg-color);
 	color: var(--page-soundtrack-fg-color);
