@@ -25,7 +25,7 @@ const pageState = {
 	loopers: [],
 	playButtons: [],
 	isPlaying: false,
-	playbackTempo: 120,
+	playbackTempo: 0,
 }
 
 function onScrollChange() {
@@ -77,15 +77,15 @@ function togglePlayback() {
 	} );
 }
 
-function disablePlayButtons() {
+function disablePlayButtons( label, tooltip ) {
 	pageState.playButtons = getPlayButtonElements();
 
 	pageState.playButtons.forEach( playButton => {
 		playButton.disabled = true;
-		playButton.textContent = 'Loading'
+		playButton.textContent = label;
+		playButton.title = tooltip;
 	} );
 }
-
 
 function setupPlayButtons() {
 	pageState.playButtons = getPlayButtonElements();
@@ -98,7 +98,7 @@ function setupPlayButtons() {
 }
 
 function getPageTempo() {
-	let tempo = 120;
+	let tempo = 0;
 
 	const pageTempoMetaElement = document.querySelector( '#page-soundtrack-tempo' );
 	if ( ! pageTempoMetaElement ) {
@@ -113,11 +113,19 @@ function getPageTempo() {
 }
 
 function setupPageSoundtrack() {
-	disablePlayButtons();
+	disablePlayButtons( 'Soundtrack disabled', 'Page soundtrack is disabled on multi-post pages. View full post to play soundtrack.' );
 
 	const allLoops = getLoopElements();
 
 	pageState.playbackTempo = getPageTempo();
+
+	// Leave everything disabled if tempo is not available.
+	// This is used to disable soundtrack on archive / multi post pages.
+	if ( pageState.playbackTempo < 1 ) {
+		return;
+	}
+
+	disablePlayButtons( 'Loading', 'Loading audio files for page soundtrack…' );
 
 	const loopersProps = allLoops.map( element => {
 		return {
