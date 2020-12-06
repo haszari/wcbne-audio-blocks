@@ -71,17 +71,21 @@ add_action( 'enqueue_block_editor_assets', 'pagesoundtrack_enqueue_block_editor_
 // Register a meta field that our blocks depend on.
 // It needs to be exposed to REST API so the value is available in Gutenberg environment.
 function pagesoundtrack_blocks_init() {
-    register_post_meta( 'post', 'pagesoundtrack_playbackbpm', array(
-        'show_in_rest' => true,
-        'single' => true,
-        'type' => 'number',
-    ) );
+    register_post_meta(
+    	'', // Register for all post types - posts and pages.
+    	'pagesoundtrack_playbackbpm',
+    	array(
+	        'show_in_rest' => true,
+	        'single' => true,
+	        'type' => 'number',
+	    )
+    );
 }
 add_action( 'init', 'pagesoundtrack_blocks_init' );
 
 // Render our page tempo value so we can use it in our front-end script.
 function pagesoundtrack_blocks_content_filter( $content ) {
-	if ( ! is_single() ) {
+	if ( ! is_singular() ) {
 		// Only render tempo element for single-post pages, to disable soundtrack on
 		// archives etc.
 		return $content;
