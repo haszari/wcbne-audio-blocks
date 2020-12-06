@@ -49,9 +49,7 @@ function onScrollChange() {
 		const loopPosition = scrollPosition / perLoop;
 		const leftLoop = Math.floor( loopPosition );
 		const faderPosition = loopPosition - leftLoop;
-		if ( pageState.loopers[ leftLoop ] ) {
-			pageState.loopers[ leftLoop ]?.setPlaybackLevel( 1.0 - faderPosition );
-		}
+		pageState.loopers[ leftLoop ]?.setPlaybackLevel( 1.0 - faderPosition );
 		if ( leftLoop < ( numLoops - 1 ) ) {
 			pageState.loopers[ leftLoop + 1 ]?.setPlaybackLevel( faderPosition );
 		}
