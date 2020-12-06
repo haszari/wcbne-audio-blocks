@@ -35,13 +35,13 @@ function onScrollChange() {
 
 	if ( 1 === numLoops ) {
 		// constant level
-		pageState.loopers[0].setPlaybackLevel( 1.0 );
+		pageState.loopers[0]?.setPlaybackLevel( 1.0 );
 	}
 	if ( 2 === numLoops ) {
 		const faderPosition = scrollPosition;
 		// crossfade, top of page = loop 1, end of page = loop 2
-		pageState.loopers[ 0 ].setPlaybackLevel( 1.0 - faderPosition );
-		pageState.loopers[ 1 ].setPlaybackLevel( faderPosition );
+		pageState.loopers[ 0 ]?.setPlaybackLevel( 1.0 - faderPosition );
+		pageState.loopers[ 1 ]?.setPlaybackLevel( faderPosition );
 	}
 	else if ( 2 <= numLoops ) {
 		// many loops, split up page evenly
@@ -49,9 +49,9 @@ function onScrollChange() {
 		const loopPosition = scrollPosition / perLoop;
 		const leftLoop = Math.floor( loopPosition );
 		const faderPosition = loopPosition - leftLoop;
-		pageState.loopers[ leftLoop ].setPlaybackLevel( 1.0 - faderPosition );
+		pageState.loopers[ leftLoop ]?.setPlaybackLevel( 1.0 - faderPosition );
 		if ( leftLoop < ( numLoops - 1 ) ) {
-			pageState.loopers[ leftLoop + 1 ].setPlaybackLevel( faderPosition );
+			pageState.loopers[ leftLoop + 1 ]?.setPlaybackLevel( faderPosition );
 		}
 	}
 }
