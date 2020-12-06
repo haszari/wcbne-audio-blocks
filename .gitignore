@@ -1,3 +1,5 @@
+.DS_Store
+
 wp-content/plugins/audioblocks/build
 wp-content/plugins/audioblocks/node_modules
 
